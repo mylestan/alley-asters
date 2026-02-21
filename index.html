@@ -1,12 +1,9 @@
 <html>
   <head>
-    <link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet">
-    <style>
-      @import url('https://fonts.cdnfonts.com/css/open-dyslexic');
-    </style>
+    <link href="https://fonts.cdnfonts.com/css/atkinson-hyperlegible" rel="stylesheet">
     <style type="text/css">
       * {
-        font-family: 'Open-Dyslexic', sans-serif;
+        font-family: 'Atkinson Hyperlegible', sans-serif;
       }
       body {
         background-color: #E5E5FF;
@@ -26,6 +23,19 @@
       }
       .image {
         max-height: 400px;
+      }
+      .map-container {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+      }
+      .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
       }
     </style>
   </head>
@@ -60,6 +70,9 @@
         <li><a href="https://www.digstl.com/" target="_blank">Dig Annuals and Perennails</a> for their significant plant donations throughout our operation.</li>
       </ul>
       <h1>Gardens</h1>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1bLGuJ7TjZdiMtKVlgL71kvv7iDFQyzg&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>
+      </div>
       <div>
         <h2>3891 Connecticut St</h2>
         <p>First planted: fall 2024</p>
