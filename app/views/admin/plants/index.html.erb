@@ -1,0 +1,63 @@
+<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Plants</h1>
+
+<% if flash[:notice] %>
+  <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= form_with model: @plant, url: admin_plants_path, style: "margin-bottom: 32px;" do |f| %>
+  <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+    <%= f.text_field :name, placeholder: "Common name", required: true,
+      style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+    <%= f.text_field :latin_name, placeholder: "Latin name",
+      style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <label style="display: flex; align-items: center; gap: 4px;">
+      <%= f.check_box :is_native, checked: true %> Native
+    </label>
+    <label style="display: flex; align-items: center; gap: 4px;">
+      <%= f.check_box :invasive %> Invasive
+    </label>
+    <button type="submit"
+      style="background-color: #3d3d6b; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; margin-left: auto;">
+      Add
+    </button>
+  </div>
+<% end %>
+
+<% if @plants.any? %>
+  <p style="color: #666; margin-bottom: 12px;"><%= @plants.count %> plant<%= @plants.count == 1 ? "" : "s" %></p>
+  <table style="width: 100%; border-collapse: collapse;">
+    <% @plants.each do |plant| %>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px 0;">
+          <%= plant.name %>
+          <% if plant.latin_name.present? %>
+            <span style="color: #666; font-style: italic;"> — <%= plant.latin_name %></span>
+          <% end %>
+          <% unless plant.is_native %>
+            <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Non-native</span>
+          <% end %>
+          <% if plant.invasive %>
+            <span style="background-color: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Invasive</span>
+          <% end %>
+        </td>
+        <td style="padding: 10px 0; text-align: right;">
+          <%= button_to "Remove", admin_plant_path(plant), method: :delete,
+            form: { onsubmit: "return confirm('Remove #{j(plant.name)}?')" },
+            style: "background: none; border: none; color: #991b1b; cursor: pointer; font-family: inherit; font-size: 0.9em;" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p style="color: #666;">No plants added yet.</p>
+<% end %>

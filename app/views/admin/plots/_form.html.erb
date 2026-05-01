@@ -1,0 +1,91 @@
+<% field_style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+<% label_style = "display: block; font-weight: bold; margin-bottom: 4px;" %>
+<% group_style = "margin-bottom: 16px;" %>
+
+<%= form_with model: plot, url: url, method: method do |f| %>
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Name</label>
+    <%= f.text_field :name, required: true, style: field_style %>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Status</label>
+    <%= f.select :status, Plot::STATUSES.map { |s| [s.capitalize, s] }, {}, style: field_style %>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; <%= group_style %>">
+    <div>
+      <label style="<%= label_style %>">Square footage</label>
+      <%= f.number_field :square_footage, style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Initial plant count</label>
+      <%= f.number_field :initial_plant_count, style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Added plant count</label>
+      <%= f.number_field :added_plant_count, style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Native coverage %</label>
+      <%= f.number_field :native_plant_coverage_percent, step: 0.01, min: 0, max: 1, placeholder: "0.0 - 1.0", style: field_style %>
+    </div>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">First planted</label>
+    <%= f.date_field :first_planted, style: field_style %>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Google Maps link</label>
+    <input type="url" name="google_maps_url" placeholder="https://maps.app.goo.gl/..." style="<%= field_style %>" />
+    <% if plot.latitude.present? && plot.longitude.present? %>
+      <p style="color: #666; font-size: 0.85em; margin-top: 4px;">Current: <%= plot.latitude %>, <%= plot.longitude %></p>
+    <% end %>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Previous contents</label>
+    <%= f.text_field :plants_removed, style: field_style %>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Notes</label>
+    <%= f.text_area :notes, rows: 3, style: field_style %>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="display: flex; align-items: center; gap: 6px;">
+      <%= f.check_box :managed_by_us %> Managed by us
+    </label>
+    <label style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+      <%= f.check_box :has_signage %> Has signage
+    </label>
+  </div>
+
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Plants</label>
+    <% if plants.any? %>
+      <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; border-radius: 4px; padding: 8px;">
+        <% plants.each do |plant| %>
+          <label style="display: flex; align-items: center; gap: 6px; padding: 4px 0;">
+            <%= check_box_tag "plot[plant_ids][]", plant.id, plot.plant_ids.include?(plant.id) %>
+            <%= plant.name %>
+            <% if plant.latin_name.present? %>
+              <span style="color: #666; font-style: italic;"><%= plant.latin_name %></span>
+            <% end %>
+          </label>
+        <% end %>
+      </div>
+      <%= hidden_field_tag "plot[plant_ids][]", "" %>
+    <% else %>
+      <p style="color: #666;">No plants added yet. <a href="<%= admin_plants_path %>">Add plants first.</a></p>
+    <% end %>
+  </div>
+
+  <button type="submit"
+    style="background-color: #3d3d6b; color: white; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 1em;">
+    Save
+  </button>
+<% end %>

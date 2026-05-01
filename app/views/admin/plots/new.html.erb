@@ -1,0 +1,11 @@
+<p style="margin-bottom: 16px;"><a href="<%= admin_plots_path %>">&larr; Back to plots</a></p>
+
+<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">New Plot</h1>
+
+<% if flash[:alert] %>
+  <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= render "form", plot: @plot, plants: @plants, url: create_admin_plot_path, method: :post %>

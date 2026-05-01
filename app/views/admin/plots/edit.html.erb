@@ -1,0 +1,75 @@
+<p style="margin-bottom: 16px;"><a href="<%= admin_plots_path %>">&larr; Back to plots</a></p>
+
+<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Edit: <%= @plot.name %></h1>
+
+<% if flash[:notice] %>
+  <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= render "form", plot: @plot, plants: @plants, url: admin_plot_path(@plot), method: :patch %>
+
+<hr style="margin: 40px 0; border: none; border-top: 1px solid #ccc;">
+
+<h2 style="font-size: 1.3em; font-weight: bold; margin-bottom: 16px;">Photos</h2>
+
+<%= form_with url: admin_plot_photos_path(@plot), method: :post, multipart: true,
+  style: "display: flex; gap: 8px; align-items: flex-end; margin-bottom: 24px;" do %>
+  <div style="flex: 1;">
+    <label style="display: block; font-weight: bold; margin-bottom: 4px;">Image</label>
+    <input type="file" name="photo[image]" accept="image/*" required
+      style="width: 100%; font-family: inherit;" />
+  </div>
+  <div style="flex: 1;">
+    <label style="display: block; font-weight: bold; margin-bottom: 4px;">Caption</label>
+    <input type="text" name="photo[caption]" placeholder="e.g. Before, Initial planting, 1st year"
+      style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" />
+  </div>
+  <div>
+    <label style="display: block; font-weight: bold; margin-bottom: 4px;">Order</label>
+    <input type="number" name="photo[position]" placeholder="#"
+      style="width: 60px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" />
+  </div>
+  <button type="submit"
+    style="background-color: #3d3d6b; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; white-space: nowrap;">
+    Upload
+  </button>
+<% end %>
+
+<% if @plot.photos.any? %>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+    <% @plot.photos.each do |photo| %>
+      <div style="background-color: white; border-radius: 8px; overflow: hidden;">
+        <% if photo.image.attached? %>
+          <%= image_tag url_for(photo.image), style: "width: 100%; height: 150px; object-fit: cover;" %>
+        <% end %>
+        <div style="padding: 12px;">
+          <%= form_with url: admin_photo_path(photo), method: :patch, style: "margin-bottom: 8px;" do %>
+            <div style="display: flex; gap: 4px; margin-bottom: 6px;">
+              <input type="text" name="photo[caption]" value="<%= photo.caption %>" placeholder="Caption"
+                style="flex: 1; padding: 4px; border: 1px solid #ccc; border-radius: 3px; font-family: inherit; font-size: 0.85em; box-sizing: border-box;" />
+              <input type="number" name="photo[position]" value="<%= photo.position %>" placeholder="#"
+                style="width: 45px; padding: 4px; border: 1px solid #ccc; border-radius: 3px; font-family: inherit; font-size: 0.85em; box-sizing: border-box;" />
+            </div>
+            <button type="submit"
+              style="background: none; border: none; color: #3d3d6b; cursor: pointer; font-family: inherit; font-size: 0.85em; padding: 0; text-decoration: underline;">
+              Save
+            </button>
+          <% end %>
+          <%= button_to "Delete", admin_photo_path(photo), method: :delete,
+            form: { onsubmit: "return confirm('Delete this photo?')" },
+            style: "background: none; border: none; color: #991b1b; cursor: pointer; font-family: inherit; font-size: 0.85em; padding: 0;" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p style="color: #666;">No photos yet.</p>
+<% end %>

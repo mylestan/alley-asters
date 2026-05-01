@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alley Asters Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="https://fonts.cdnfonts.com/css/atkinson-hyperlegible" rel="stylesheet">
+    <%= stylesheet_link_tag :app %>
+  </head>
+
+  <body style="background-color: #E5E5FF; min-height: 100vh;">
+    <% if session[:admin_id] %>
+      <nav style="background-color: #3d3d6b; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 24px;">
+          <a href="<%= admin_root_path %>" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2em;">Alley Asters Admin</a>
+          <a href="<%= admin_plots_path %>" style="color: #ccc; text-decoration: none;">Plots</a>
+          <a href="<%= admin_plants_path %>" style="color: #ccc; text-decoration: none;">Plants</a>
+        </div>
+        <%= button_to "Logout", admin_logout_path, method: :delete, style: "background: none; border: 1px solid white; color: white; padding: 6px 12px; cursor: pointer; font-family: inherit; border-radius: 4px;" %>
+      </nav>
+    <% end %>
+
+    <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+      <%= yield %>
+    </div>
+  </body>
+</html>
