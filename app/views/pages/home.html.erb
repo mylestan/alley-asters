@@ -67,7 +67,7 @@
   <script>
     function initMap() {
       const plots = <%= raw @plots.where.not(latitude: nil, longitude: nil).map { |p|
-        { lat: p.latitude.to_f, lng: p.longitude.to_f, name: p.name, url: "/plots/#{p.slug}" }
+        { lat: p.latitude.to_f, lng: p.longitude.to_f, name: p.display_name, url: "/plots/#{p.slug}" }
       }.to_json %>;
 
       const bounds = new google.maps.LatLngBounds();
@@ -80,7 +80,7 @@
         const marker = new google.maps.marker.AdvancedMarkerElement({
           map: map,
           position: position,
-          title: plot.name
+          title: plot.display_name
         });
 
         marker.addListener("click", function() {

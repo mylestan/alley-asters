@@ -3,9 +3,19 @@
 <% group_style = "margin-bottom: 16px;" %>
 
 <%= form_with model: plot, url: url, method: method do |f| %>
-  <div style="<%= group_style %>">
-    <label style="<%= label_style %>">Name</label>
-    <%= f.text_field :name, required: true, style: field_style %>
+  <div style="display: grid; grid-template-columns: 2fr 1fr 2fr; gap: 16px; <%= group_style %>">
+    <div>
+      <label style="<%= label_style %>">Address</label>
+      <%= f.text_field :address, placeholder: "e.g. 3884 Connecticut", style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Sub-location</label>
+      <%= f.text_field :sub_location, placeholder: "e.g. East", style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Name</label>
+      <%= f.text_field :name, placeholder: "e.g. Mann Elementary", style: field_style %>
+    </div>
   </div>
 
   <div style="<%= group_style %>">

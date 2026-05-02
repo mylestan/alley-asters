@@ -6,7 +6,7 @@
 <div id="container" style="padding: 40px 100px 100px;">
   <p><a href="<%= root_path %>">&larr; Back to all gardens</a></p>
 
-  <h1><%= @plot.name %></h1>
+  <h1><%= @plot.display_name %></h1>
 
   <% if @plot.first_planted.present? %>
     <p>First planted: <%= @plot.first_planted.strftime("%B %Y") %></p>

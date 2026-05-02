@@ -69,7 +69,7 @@ class Admin::PlotsController < ApplicationController
 
   def plot_params
     params.require(:plot).permit(
-      :name, :square_footage, :first_planted,
+      :name, :address, :sub_location, :square_footage, :first_planted,
       :initial_plant_count, :added_plant_count, :native_plant_coverage_percent,
       :notes, :plants_removed, :managed_by_us, :has_signage, :status,
       plant_ids: []
