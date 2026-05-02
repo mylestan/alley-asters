@@ -7,6 +7,16 @@ class Plot < ApplicationRecord
 
   validates :status, inclusion: { in: STATUSES }
 
+  def self.by_address
+    all.sort_by do |plot|
+      if plot.name.match(/^(\d+)\s+(.+)$/)
+        [0, $2, $1.to_i]
+      else
+        [1, plot.name, 0]
+      end
+    end
+  end
+
   before_validation :generate_slug, if: -> { slug.blank? && name.present? }
 
   def to_param

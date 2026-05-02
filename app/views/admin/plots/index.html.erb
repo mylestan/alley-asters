@@ -12,6 +12,17 @@
   </div>
 <% end %>
 
+<div style="display: flex; gap: 8px; margin-bottom: 16px;">
+  <% [["All", nil], ["Planted", "planted"], ["Planned", "planned"], ["Potential", "potential"]].each do |label, value| %>
+    <% active = @status_filter == value %>
+    <a href="<%= admin_plots_path(status: value) %>"
+      style="padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 0.9em;
+        <%= active ? "background-color: #3d3d6b; color: white;" : "background-color: white; color: #3d3d6b; border: 1px solid #ccc;" %>">
+      <%= label %>
+    </a>
+  <% end %>
+</div>
+
 <p style="color: #666; margin-bottom: 12px;"><%= @plots.count %> plot<%= @plots.count == 1 ? "" : "s" %></p>
 
 <table style="width: 100%; border-collapse: collapse;">

@@ -4,7 +4,9 @@ class Admin::PlotsController < ApplicationController
   before_action :set_plot, only: %i[edit update]
 
   def index
-    @plots = Plot.order(:created_at)
+    @status_filter = params[:status]
+    plots = @status_filter.present? ? Plot.where(status: @status_filter) : Plot.all
+    @plots = plots.by_address
   end
 
   def new
