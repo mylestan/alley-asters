@@ -89,7 +89,12 @@
   <tbody>
     <% @plots.each do |plot| %>
       <tr style="border-bottom: 1px solid #ddd;">
-        <td style="padding: 10px 0;"><%= plot.display_name %></td>
+        <td style="padding: 10px 0;">
+          <%= plot.display_name %>
+          <% if plot.latitude.blank? || plot.longitude.blank? %>
+            <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">No location</span>
+          <% end %>
+        </td>
         <td style="padding: 10px 0;">
           <% color = case plot.status
                when "planted" then "#166534"
