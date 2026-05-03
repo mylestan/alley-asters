@@ -40,9 +40,10 @@ class Plot < ApplicationRecord
 
     expanded = response["location"] || url
 
-    if expanded.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
+    # Prefer !3d/!4d (exact place coords) over @ (viewport center)
+    if expanded.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/)
       { latitude: $1.to_f, longitude: $2.to_f }
-    elsif expanded.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/)
+    elsif expanded.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
       { latitude: $1.to_f, longitude: $2.to_f }
     end
   rescue StandardError
