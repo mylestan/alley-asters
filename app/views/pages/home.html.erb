@@ -39,28 +39,13 @@
     <li>Follow us on <a href="https://www.instagram.com/alleyasters" target="_blank">Instagram</a> to stay up to date on
       our meetups and volunteer events.</li>
   </ul>
-  <h1>Who We Are</h1>
-  <div>
-    <h3>Myles Tan</h3>
-    <p>Myles started Alley Asters when he fell in love with native plants in 2022 and ran out of space in his own yard to plant. A software engineer by day, what Myles lacks in knowledge and experience, he makes up for in enthusiasm for the cause.</p>
-  </div>
-  <div>
-    <h3>Rachel Rigden</h3>
-    <p>Rachel is a St. Louis born and raised science educator and primary school teacher. Her background in ecology and science outreach help Alley Asters engage with our community.</p>
-  </div>
-  <div>
-    <h3>Laurie Sax</h3>
-    <p>Laurie is a Missouri Master Naturalist, and is essential to our certification and grant writing efforts.</p>
-  </div>
-  <div>
-    <h3>Beth Austin</h3>
-    <p>Beth is a master gardener and brings decades of green industry experience to our team. Beth's wisdom and experience is invaluable in guiding our site implementations.</p>
-  </div>
-  <div>
-    <h3>...and you!</h3>
-    <p>We rely on the amazing people that come out to our social events to learn and help steward the sites, as well as the homeowners who allow us to plant on their property and contribute to our cause.</p>
-  </div>
   <h1>Gardens</h1>
+  <div style="display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap;">
+    <div><strong><%= @total_plots %></strong> plots</div>
+    <div><strong><%= @total_square_footage %></strong> sq. ft. planted</div>
+    <div><strong><%= @total_plants_planted %></strong> plants planted</div>
+    <div><strong><%= @distinct_native_plants %></strong> native species</div>
+  </div>
   <p>Click on a pin to learn more about a specific plot.</p>
   <div id="map" style="width: 100%; height: 450px; border-radius: 8px;"></div>
 
@@ -97,6 +82,27 @@
     src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps_api_key) %>&callback=initMap&libraries=marker&v=weekly">
   </script>
 
+  <h1>Who We Are</h1>
+  <div>
+    <h3>Myles Tan</h3>
+    <p>Myles started Alley Asters when he fell in love with native plants in 2022 and ran out of space in his own yard to plant. A software engineer by day, what Myles lacks in knowledge and experience, he makes up for in enthusiasm for the cause.</p>
+  </div>
+  <div>
+    <h3>Rachel Rigden</h3>
+    <p>Rachel is a St. Louis born and raised science educator and primary school teacher. Her background in ecology and science outreach help Alley Asters engage with our community.</p>
+  </div>
+  <div>
+    <h3>Laurie Sax</h3>
+    <p>Laurie is a Missouri Master Naturalist, and is essential to our certification and grant writing efforts.</p>
+  </div>
+  <div>
+    <h3>Beth Austin</h3>
+    <p>Beth is a master gardener and brings decades of green industry experience to our team. Beth's wisdom and experience is invaluable in guiding our site implementations.</p>
+  </div>
+  <div>
+    <h3>...and you!</h3>
+    <p>We rely on the amazing people that come out to our social events to learn and help steward the sites, as well as the homeowners who allow us to plant on their property and contribute to our cause.</p>
+  </div>
   <h1>Thanks To</h1>
   <ul>
     <li><a href="https://www.facebook.com/groups/448912805283071" target="_blank">St. Louis Native Plant Swap Facebook
