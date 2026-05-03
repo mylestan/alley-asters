@@ -26,6 +26,12 @@
     <label style="display: flex; align-items: center; gap: 4px;">
       <%= f.check_box :invasive %> Invasive
     </label>
+    <label style="display: flex; align-items: center; gap: 4px;">
+      <%= f.check_box :nativar %> Nativar
+    </label>
+    <label style="display: flex; align-items: center; gap: 4px;">
+      <%= f.check_box :cultivar %> Cultivar
+    </label>
     <button type="submit"
       style="background-color: #3d3d6b; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; margin-left: auto;">
       Add
@@ -49,8 +55,15 @@
           <% if plant.invasive %>
             <span style="background-color: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Invasive</span>
           <% end %>
+          <% if plant.nativar %>
+            <span style="background-color: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Nativar</span>
+          <% end %>
+          <% if plant.cultivar %>
+            <span style="background-color: #f3e8ff; color: #7c3aed; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Cultivar</span>
+          <% end %>
         </td>
-        <td style="padding: 10px 0; text-align: right;">
+        <td style="padding: 10px 0; text-align: right; white-space: nowrap;">
+          <a href="<%= edit_admin_plant_path(plant) %>" style="color: #3d3d6b; margin-right: 12px;">Edit</a>
           <%= button_to "Remove", admin_plant_path(plant), method: :delete,
             form: { onsubmit: "return confirm('Remove #{j(plant.name)}?')" },
             style: "background: none; border: none; color: #991b1b; cursor: pointer; font-family: inherit; font-size: 0.9em;" %>

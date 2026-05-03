@@ -18,6 +18,20 @@ class Admin::PlantsController < ApplicationController
     end
   end
 
+  def edit
+    @plant = Plant.find(params[:id])
+  end
+
+  def update
+    @plant = Plant.find(params[:id])
+    if @plant.update(plant_params)
+      redirect_to admin_plants_path, notice: "Plant updated."
+    else
+      flash.now[:alert] = @plant.errors.full_messages.join(", ")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     Plant.find(params[:id]).destroy
     redirect_to admin_plants_path, notice: "Plant removed."
@@ -32,6 +46,6 @@ class Admin::PlantsController < ApplicationController
   end
 
   def plant_params
-    params.require(:plant).permit(:name, :latin_name, :is_native, :invasive)
+    params.require(:plant).permit(:name, :latin_name, :is_native, :invasive, :nativar, :cultivar)
   end
 end

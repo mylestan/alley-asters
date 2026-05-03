@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     delete "logout", to: "sessions#destroy", as: :admin_logout
     get "plants", to: "plants#index", as: :admin_plants
     post "plants", to: "plants#create"
-    delete "plants/:id", to: "plants#destroy", as: :admin_plant
+    get "plants/:id/edit", to: "plants#edit", as: :edit_admin_plant
+    patch "plants/:id", to: "plants#update", as: :admin_plant
+    delete "plants/:id", to: "plants#destroy"
     get "plots", to: "plots#index", as: :admin_plots
     get "plots/new", to: "plots#new", as: :new_admin_plot
     post "plots", to: "plots#create", as: :create_admin_plot
