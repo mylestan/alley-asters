@@ -24,6 +24,27 @@
     <p>Notes: <%= @plot.notes %></p>
   <% end %>
 
+  <% unless @plot.managed_by_us %>
+    <p><em>This plot is not managed by Alley Asters.</em></p>
+  <% end %>
+  <% unless @plot.has_signage %>
+    <p><em>This plot does not have signage.</em></p>
+  <% end %>
+
+  <% if @plot.plants.any? %>
+    <h2>Plants</h2>
+    <ul>
+      <% @plot.plants.order(:name).each do |plant| %>
+        <li>
+          <%= plant.name %>
+          <% if plant.latin_name.present? %>
+            <span style="color: #666; font-style: italic;"> — <%= plant.latin_name %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% if @plot.photos.any? %>
     <div class="image-container">
       <% @plot.photos.each do |photo| %>
