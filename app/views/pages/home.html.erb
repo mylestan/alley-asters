@@ -62,10 +62,17 @@
 
       plots.forEach(function(plot) {
         const position = { lat: plot.lat, lng: plot.lng };
+        const pin = new google.maps.marker.PinElement({
+          background: "#166534",
+          borderColor: "#166534",
+          glyphColor: "white"
+        });
+
         const marker = new google.maps.marker.AdvancedMarkerElement({
           map: map,
           position: position,
-          title: plot.display_name
+          title: plot.display_name,
+          content: pin.element
         });
 
         marker.addListener("click", function() {
