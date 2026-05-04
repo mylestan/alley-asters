@@ -49,7 +49,7 @@
           <% if plant.latin_name.present? %>
             <span style="color: #666; font-style: italic;"> — <%= plant.latin_name %></span>
           <% end %>
-          <% unless plant.is_native %>
+          <% if !plant.is_native && !plant.nativar %>
             <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Non-native</span>
           <% end %>
           <% if plant.invasive %>
