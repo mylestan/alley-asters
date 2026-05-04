@@ -1,7 +1,7 @@
 class Admin::PlotsController < ApplicationController
   layout "admin"
   before_action :require_admin
-  before_action :set_plot, only: %i[edit update]
+  before_action :set_plot, only: %i[edit update destroy]
 
   def index
     @status_filter = params[:status]
@@ -29,6 +29,11 @@ class Admin::PlotsController < ApplicationController
 
   def edit
     @plants = Plant.order(:name)
+  end
+
+  def destroy
+    @plot.destroy
+    redirect_to admin_plots_path, notice: "Plot deleted."
   end
 
   def update

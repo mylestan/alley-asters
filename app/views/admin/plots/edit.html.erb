@@ -73,3 +73,9 @@
 <% else %>
   <p style="color: #666;">No photos yet.</p>
 <% end %>
+
+<hr style="margin: 40px 0; border: none; border-top: 1px solid #ccc;">
+
+<%= button_to "Delete this plot", admin_plot_path(@plot), method: :delete,
+  form: { onsubmit: "return confirm('Are you sure you want to delete #{j(@plot.display_name)}? This will also delete all associated photos and plant assignments.')" },
+  style: "background: none; border: 1px solid #991b1b; color: #991b1b; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-family: inherit;" %>

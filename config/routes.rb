@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post "plots", to: "plots#create", as: :create_admin_plot
     get "plots/:id/edit", to: "plots#edit", as: :edit_admin_plot
     patch "plots/:id", to: "plots#update", as: :admin_plot
+    delete "plots/:id", to: "plots#destroy"
     post "plots/:plot_id/photos", to: "photos#create", as: :admin_plot_photos
     patch "photos/:id", to: "photos#update", as: :admin_photo
     delete "photos/:id", to: "photos#destroy"
