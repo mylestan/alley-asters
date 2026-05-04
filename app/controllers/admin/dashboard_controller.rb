@@ -14,6 +14,7 @@ class Admin::DashboardController < ApplicationController
     @total_cultivars = planted_plants.where(cultivar: true).count
     @total_invasive_plants = planted_plants.where(invasive: true).count
     @total_nativars = planted_plants.where(nativar: true).count
+    @total_non_native_plants = planted_plants.where(is_native: false, nativar: false).count
 
     plots_with_coverage = Plot.where(status: "planted").where.not(native_plant_coverage_percent: nil).where.not(square_footage: [nil, 0])
     weighted_sum = plots_with_coverage.sum("square_footage * native_plant_coverage_percent")
