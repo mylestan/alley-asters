@@ -39,4 +39,9 @@
     <div style="font-size: 2.5em; font-weight: bold; color: #3d3d6b;"><%= @distinct_native_plants %></div>
     <div style="color: #666; margin-top: 4px;">Distinct Native Plants</div>
   </div>
+
+  <div style="background-color: white; padding: 24px; border-radius: 8px; text-align: center;">
+    <div style="font-size: 2.5em; font-weight: bold; color: #3d3d6b;"><%= @native_coverage_percent ? "#{@native_coverage_percent}%" : "—" %></div>
+    <div style="color: #666; margin-top: 4px;">Native Coverage</div>
+  </div>
 </div>

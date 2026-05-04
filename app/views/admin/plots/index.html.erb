@@ -94,6 +94,12 @@
           <% if plot.latitude.blank? || plot.longitude.blank? %>
             <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">No location</span>
           <% end %>
+          <% if plot.status == "planted" && (plot.square_footage.blank? || plot.square_footage == 0) %>
+            <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">No sq ft</span>
+          <% end %>
+          <% if plot.status == "planted" && (plot.native_plant_coverage_percent.blank? || plot.native_plant_coverage_percent == 0) %>
+            <span style="background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">No coverage</span>
+          <% end %>
         </td>
         <td style="padding: 10px 0;">
           <% color = case plot.status
