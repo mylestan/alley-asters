@@ -32,6 +32,9 @@
     <label style="display: flex; align-items: center; gap: 4px;">
       <%= f.check_box :cultivar %> Cultivar
     </label>
+    <label style="display: flex; align-items: center; gap: 4px;">
+      <%= f.check_box :endangered %> Endangered
+    </label>
     <button type="submit"
       style="background-color: #3d3d6b; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; margin-left: auto;">
       Add
@@ -60,6 +63,9 @@
           <% end %>
           <% if plant.cultivar %>
             <span style="background-color: #f3e8ff; color: #7c3aed; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Cultivar</span>
+          <% end %>
+          <% if plant.endangered %>
+            <span style="background-color: #fce7f3; color: #be185d; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">Endangered</span>
           <% end %>
         </td>
         <td style="padding: 10px 0; text-align: right; white-space: nowrap;">
