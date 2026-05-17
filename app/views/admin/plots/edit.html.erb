@@ -34,7 +34,7 @@
   </div>
   <div>
     <label style="display: block; font-weight: bold; margin-bottom: 4px;">Order</label>
-    <input type="number" name="photo[position]" placeholder="#"
+    <input type="number" name="photo[position]" value="<%= (@plot.photos.maximum(:position) || 0) + 1 %>"
       style="width: 60px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" />
   </div>
   <button type="submit"
