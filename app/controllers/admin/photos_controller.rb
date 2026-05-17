@@ -3,7 +3,7 @@ class Admin::PhotosController < ApplicationController
   before_action :require_admin
 
   def create
-    plot = Plot.find(params[:plot_id])
+    plot = Plot.find_by!(slug: params[:plot_id])
     photo = plot.photos.build(photo_params)
 
     if photo.save
