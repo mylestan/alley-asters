@@ -57,6 +57,16 @@
   img {
     display: inline;
   }
+
+  #container {
+    padding: 24px;
+  }
+
+  @media (min-width: 768px) {
+    #container {
+      padding: 100px;
+    }
+  }
 }
 
 .image-container {
