@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_10_200025) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_20_030211) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -44,6 +44,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_10_200025) do
     t.string "email"
     t.string "password_digest"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "plant_id", null: false
+    t.integer "quantity", default: 0, null: false
+    t.string "status", default: "not_ready", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_id"], name: "index_inventory_items_on_plant_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -232,6 +241,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_10_200025) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "inventory_items", "plants"
   add_foreign_key "photos", "plots"
   add_foreign_key "plots_plants", "plants"
   add_foreign_key "plots_plants", "plots"

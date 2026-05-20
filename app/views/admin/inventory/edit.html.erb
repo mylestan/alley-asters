@@ -1,0 +1,36 @@
+<% field_style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+<% label_style = "display: block; font-weight: bold; margin-bottom: 4px;" %>
+<% group_style = "margin-bottom: 16px;" %>
+
+<p style="margin-bottom: 16px;"><a href="<%= admin_inventory_path %>">&larr; Back to inventory</a></p>
+
+<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Edit: <%= @item.plant.name %></h1>
+
+<% if flash[:alert] %>
+  <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= form_with model: @item, url: admin_inventory_item_path(@item), method: :patch do |f| %>
+  <div style="<%= group_style %>">
+    <label style="<%= label_style %>">Plant</label>
+    <%= f.collection_select :plant_id, @plants, :id, :name, {}, style: field_style %>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; <%= group_style %>">
+    <div>
+      <label style="<%= label_style %>">Quantity</label>
+      <%= f.number_field :quantity, min: 0, style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Status</label>
+      <%= f.select :status, InventoryItem::STATUSES.map { |s| [s.humanize, s] }, {}, style: field_style %>
+    </div>
+  </div>
+
+  <button type="submit"
+    style="background-color: #3d3d6b; color: white; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 1em;">
+    Save
+  </button>
+<% end %>

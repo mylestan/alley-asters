@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     post "plots/:plot_id/photos", to: "photos#create", as: :admin_plot_photos
     patch "photos/:id", to: "photos#update", as: :admin_photo
     delete "photos/:id", to: "photos#destroy"
+    get "inventory", to: "inventory#index", as: :admin_inventory
+    post "inventory", to: "inventory#create"
+    get "inventory/:id/edit", to: "inventory#edit", as: :edit_admin_inventory_item
+    patch "inventory/:id", to: "inventory#update", as: :admin_inventory_item
+    delete "inventory/:id", to: "inventory#destroy"
   end
 
   get "plots/:slug", to: "plots#show", as: :plot
