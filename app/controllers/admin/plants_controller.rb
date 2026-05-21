@@ -64,6 +64,6 @@ class Admin::PlantsController < ApplicationController
   end
 
   def plant_params
-    params.require(:plant).permit(:name, :latin_name, :is_native, :invasive, :nativar, :cultivar, :endangered)
+    params.require(:plant).permit(:name, :latin_name, :is_native, :invasive, :nativar, :cultivar, :endangered, :canopy_layer)
   end
 end

@@ -13,7 +13,7 @@
 <% end %>
 
 <%= form_with model: @plant, url: admin_plant_path(@plant), method: :patch do |f| %>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; <%= group_style %>">
+  <div style="display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 16px; <%= group_style %>">
     <div>
       <label style="<%= label_style %>">Common name</label>
       <%= f.text_field :name, required: true, style: field_style %>
@@ -21,6 +21,10 @@
     <div>
       <label style="<%= label_style %>">Latin name</label>
       <%= f.text_field :latin_name, style: field_style %>
+    </div>
+    <div>
+      <label style="<%= label_style %>">Canopy layer</label>
+      <%= f.select :canopy_layer, Plant::CANOPY_LAYERS.map { |l| [l.capitalize, l] }, {}, style: field_style %>
     </div>
   </div>
 

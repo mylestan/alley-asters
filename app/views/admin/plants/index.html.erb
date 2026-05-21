@@ -21,9 +21,11 @@
 <%= form_with model: @plant, url: admin_plants_path, style: "margin-bottom: 32px;" do |f| %>
   <div style="display: flex; gap: 8px; margin-bottom: 8px;">
     <%= f.text_field :name, placeholder: "Common name", required: true,
-      style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box; text-transform: capitalize;" %>
+      style: "flex: 2; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box; text-transform: capitalize;" %>
     <%= f.text_field :latin_name, placeholder: "Latin name",
-      style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box; text-transform: capitalize;" %>
+      style: "flex: 2; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box; text-transform: capitalize;" %>
+    <%= f.select :canopy_layer, Plant::CANOPY_LAYERS.map { |l| [l.capitalize, l] }, {},
+      style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
   </div>
   <div style="display: flex; align-items: center; gap: 8px;">
     <label style="display: flex; align-items: center; gap: 4px;">
