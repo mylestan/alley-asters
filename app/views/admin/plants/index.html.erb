@@ -1,4 +1,10 @@
-<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Plants</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+  <h1 style="font-size: 1.5em; font-weight: bold; margin: 0;">Plants</h1>
+  <a href="<%= admin_plants_path(format: :csv) %>"
+    style="background-color: #3d3d6b; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.9em;">
+    Export CSV
+  </a>
+</div>
 
 <% if flash[:notice] %>
   <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
