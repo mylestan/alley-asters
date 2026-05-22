@@ -8,6 +8,19 @@
 
   <h1><%= @plot.display_name %></h1>
 
+  <% if @plot.photos.any? %>
+    <div class="image-container">
+      <% @plot.photos.reverse.each do |photo| %>
+        <div class="image-card">
+          <%= image_tag url_for(photo.image), alt: photo.caption %>
+          <% if photo.caption.present? %>
+            <p><%= photo.caption %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
   <% if @plot.first_planted.present? %>
     <p>First planted: <%= @plot.first_planted.strftime("%B %Y") %></p>
   <% end %>
@@ -50,16 +63,4 @@
     <% end %>
   <% end %>
 
-  <% if @plot.photos.any? %>
-    <div class="image-container">
-      <% @plot.photos.each do |photo| %>
-        <div class="image-card">
-          <%= image_tag url_for(photo.image), alt: photo.caption %>
-          <% if photo.caption.present? %>
-            <p><%= photo.caption %></p>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
 </div>
