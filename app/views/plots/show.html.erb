@@ -32,17 +32,22 @@
   <% end %>
 
   <% if @plot.plants.any? %>
+    <% plants_list = @plot.plants.order(:name) %>
+    <% has_large_plants = plants_list.any? { |p| %w[canopy understory].include?(p.canopy_layer) } %>
     <h2>Plants</h2>
     <ul>
-      <% @plot.plants.order(:name).each do |plant| %>
+      <% plants_list.each do |plant| %>
         <li>
-          <%= plant.name %>
+          <%= plant.name %><% if %w[canopy understory].include?(plant.canopy_layer) %>*<% end %>
           <% if plant.latin_name.present? %>
             <span style="color: #666; font-style: italic;"> — <%= plant.latin_name %></span>
           <% end %>
         </li>
       <% end %>
     </ul>
+    <% if has_large_plants %>
+      <p style="color: #666; font-size: 0.9em;">*Larger plants listed may overhang the plot instead of being planted directly in the plot.</p>
+    <% end %>
   <% end %>
 
   <% if @plot.photos.any? %>
