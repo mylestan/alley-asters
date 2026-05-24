@@ -11,7 +11,7 @@
   </head>
 
   <body style="background-color: #E5E5FF; min-height: 100vh;">
-    <% if session[:admin_id] %>
+    <% if session[:user_id] %>
       <nav style="background-color: #3d3d6b; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 24px;">
           <a href="<%= admin_root_path %>" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2em;">Alley Asters Admin</a>

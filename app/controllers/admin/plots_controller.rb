@@ -1,4 +1,5 @@
 class Admin::PlotsController < ApplicationController
+  include AdminAuthenticatable
   layout "admin"
   before_action :require_admin
   before_action :set_plot, only: %i[edit update destroy]
@@ -50,12 +51,6 @@ class Admin::PlotsController < ApplicationController
   end
 
   private
-
-  def require_admin
-    unless session[:admin_id] && Admin.exists?(session[:admin_id])
-      redirect_to admin_login_path
-    end
-  end
 
   def set_plot
     @plot = Plot.find_by!(slug: params[:id])

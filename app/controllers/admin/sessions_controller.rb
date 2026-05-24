@@ -5,11 +5,16 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    admin = Admin.find_by(email: params[:email])
+    user = User.find_by(email: params[:email])
 
-    if admin&.authenticate(params[:password])
-      session[:admin_id] = admin.id
-      redirect_to admin_root_path
+    if user&.authenticate(params[:password])
+      if user.is_admin?
+        session[:user_id] = user.id
+        redirect_to admin_root_path
+      else
+        flash.now[:alert] = "You do not have admin access"
+        render :new, status: :unprocessable_entity
+      end
     else
       flash.now[:alert] = "Invalid email or password"
       render :new, status: :unprocessable_entity
@@ -17,7 +22,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:admin_id)
+    session.delete(:user_id)
     redirect_to admin_login_path
   end
 end

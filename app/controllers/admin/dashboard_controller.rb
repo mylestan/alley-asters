@@ -1,4 +1,5 @@
 class Admin::DashboardController < ApplicationController
+  include AdminAuthenticatable
   layout "admin"
   before_action :require_admin
 
@@ -20,13 +21,5 @@ class Admin::DashboardController < ApplicationController
     weighted_sum = plots_with_coverage.sum("square_footage * native_plant_coverage_percent")
     total_sq_ft = plots_with_coverage.sum(:square_footage)
     @native_coverage_percent = total_sq_ft > 0 ? (weighted_sum / total_sq_ft * 100).round : nil
-  end
-
-  private
-
-  def require_admin
-    unless session[:admin_id] && Admin.exists?(session[:admin_id])
-      redirect_to admin_login_path
-    end
   end
 end

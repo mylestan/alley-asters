@@ -1,4 +1,5 @@
 class Admin::PlantsController < ApplicationController
+  include AdminAuthenticatable
   layout "admin"
   before_action :require_admin
 
@@ -43,12 +44,6 @@ class Admin::PlantsController < ApplicationController
   end
 
   private
-
-  def require_admin
-    unless session[:admin_id] && Admin.exists?(session[:admin_id])
-      redirect_to admin_login_path
-    end
-  end
 
   def generate_csv
     require "csv"

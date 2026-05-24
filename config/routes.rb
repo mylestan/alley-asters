@@ -27,6 +27,9 @@ Rails.application.routes.draw do
     delete "inventory/:id", to: "inventory#destroy"
   end
 
+  get "signup", to: "registrations#new", as: :signup
+  post "signup", to: "registrations#create"
+
   get "plots/:slug", to: "plots#show", as: :plot
   get "old", to: "pages#old"
   root "pages#home"

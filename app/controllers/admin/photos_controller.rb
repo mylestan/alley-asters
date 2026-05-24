@@ -1,4 +1,5 @@
 class Admin::PhotosController < ApplicationController
+  include AdminAuthenticatable
   layout "admin"
   before_action :require_admin
 
@@ -28,11 +29,6 @@ class Admin::PhotosController < ApplicationController
 
   private
 
-  def require_admin
-    unless session[:admin_id] && Admin.exists?(session[:admin_id])
-      redirect_to admin_login_path
-    end
-  end
 
   def photo_params
     params.require(:photo).permit(:image, :caption, :position)

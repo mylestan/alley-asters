@@ -1,4 +1,5 @@
 class Admin::InventoryController < ApplicationController
+  include AdminAuthenticatable
   layout "admin"
   before_action :require_admin
 
@@ -47,11 +48,6 @@ class Admin::InventoryController < ApplicationController
 
   private
 
-  def require_admin
-    unless session[:admin_id] && Admin.exists?(session[:admin_id])
-      redirect_to admin_login_path
-    end
-  end
 
   def item_params
     params.require(:inventory_item).permit(:plant_id, :quantity, :status)
