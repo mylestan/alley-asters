@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope :dumpster, module: :admin do
     get "", to: "dashboard#index", as: :admin_root
     get "login", to: "sessions#new", as: :admin_login
-    post "login", to: "sessions#create"
+    post "login", to: "sessions#create", as: nil
     delete "logout", to: "sessions#destroy", as: :admin_logout
     get "plants", to: "plants#index", as: :admin_plants
     post "plants", to: "plants#create"
@@ -29,6 +29,11 @@ Rails.application.routes.draw do
 
   get "signup", to: "registrations#new", as: :signup
   post "signup", to: "registrations#create"
+  get "login", to: "sessions#new", as: :login
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy", as: :logout
+  get "profile", to: "profiles#edit", as: :profile
+  patch "profile", to: "profiles#update"
 
   get "plots/:slug", to: "plots#show", as: :plot
   get "old", to: "pages#old"

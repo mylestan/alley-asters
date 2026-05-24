@@ -1,0 +1,110 @@
+<% field_style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+<% label_style = "display: block; font-weight: bold; margin-bottom: 4px;" %>
+<% group_style = "margin-bottom: 16px;" %>
+
+<div style="max-width: 500px; margin: 40px auto; padding: 40px; background-color: #E5E5FF;">
+  <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Your Profile</h1>
+
+  <% if flash[:notice] %>
+    <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_with model: @user, url: profile_path, method: :patch do |f| %>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; <%= group_style %>">
+      <div>
+        <label style="<%= label_style %>">First name</label>
+        <%= f.text_field :first_name, style: field_style %>
+      </div>
+      <div>
+        <label style="<%= label_style %>">Last name</label>
+        <%= f.text_field :last_name, style: field_style %>
+      </div>
+    </div>
+
+    <div style="<%= group_style %>">
+      <label style="<%= label_style %>">Instagram handle</label>
+      <%= f.text_field :instagram_handle, placeholder: "@yourusername", style: field_style %>
+      <p style="color: #666; font-size: 0.85em; margin-top: 4px;">Your instagram handle lets us tag you when we post what work has been completed.</p>
+    </div>
+
+    <div style="<%= group_style %>">
+      <label style="<%= label_style %>">Address</label>
+      <input type="text" id="address-autocomplete" placeholder="Start typing your address..."
+        style="<%= field_style %>" autocomplete="off" />
+      <p style="color: #666; font-size: 0.85em; margin-top: 4px;">Your address is used to show you tasks closest to your location.</p>
+    </div>
+
+    <div style="<%= group_style %>">
+      <label style="<%= label_style %>">Street address</label>
+      <%= f.text_field :street_address, id: "street-address", style: field_style %>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; <%= group_style %>">
+      <div>
+        <label style="<%= label_style %>">City</label>
+        <%= f.text_field :city, id: "city", style: field_style %>
+      </div>
+      <div>
+        <label style="<%= label_style %>">State</label>
+        <%= f.text_field :state, id: "state", style: field_style %>
+      </div>
+      <div>
+        <label style="<%= label_style %>">ZIP</label>
+        <%= f.text_field :zip, id: "zip", style: field_style %>
+      </div>
+    </div>
+
+    <%= f.hidden_field :latitude, id: "latitude" %>
+    <%= f.hidden_field :longitude, id: "longitude" %>
+
+    <% if @user.latitude.present? && @user.longitude.present? %>
+      <p style="color: #666; font-size: 0.85em; margin-bottom: 16px;">Location: <%= @user.latitude %>, <%= @user.longitude %></p>
+    <% end %>
+
+    <button type="submit"
+      style="background-color: #3d3d6b; color: white; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 1em;">
+      Save
+    </button>
+  <% end %>
+</div>
+
+<script>
+  function initAutocomplete() {
+    var input = document.getElementById('address-autocomplete');
+    var autocomplete = new google.maps.places.Autocomplete(input, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' }
+    });
+
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (!place.geometry) return;
+
+      document.getElementById('latitude').value = place.geometry.location.lat();
+      document.getElementById('longitude').value = place.geometry.location.lng();
+
+      var components = {};
+      place.address_components.forEach(function(c) {
+        c.types.forEach(function(t) { components[t] = c; });
+      });
+
+      var streetNumber = components['street_number'] ? components['street_number'].long_name : '';
+      var route = components['route'] ? components['route'].long_name : '';
+      document.getElementById('street-address').value = (streetNumber + ' ' + route).trim();
+      document.getElementById('city').value = components['locality'] ? components['locality'].long_name : '';
+      document.getElementById('state').value = components['administrative_area_level_1'] ? components['administrative_area_level_1'].short_name : '';
+      document.getElementById('zip').value = components['postal_code'] ? components['postal_code'].long_name : '';
+    });
+  }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps_api_key) %>&callback=initAutocomplete&libraries=places&v=weekly">
+</script>
