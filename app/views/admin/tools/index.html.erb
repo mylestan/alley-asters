@@ -60,7 +60,8 @@
             <span style="background-color: #e3f2fd; color: #1565c0; padding: 2px 6px; border-radius: 3px; font-size: 0.8em; margin-left: 6px;">By request</span>
           <% end %>
         </td>
-        <td style="padding: 10px 0; text-align: right;">
+        <td style="padding: 10px 0; text-align: right; white-space: nowrap;">
+          <a href="<%= edit_admin_tool_path(tool) %>" style="color: #3d3d6b; margin-right: 12px;">Edit</a>
           <%= button_to "Remove", admin_tool_path(tool), method: :delete,
             form: { onsubmit: "return confirm('Remove #{j(tool.name)}?')" },
             style: "background: none; border: none; color: #991b1b; cursor: pointer; font-family: inherit; font-size: 0.9em;" %>

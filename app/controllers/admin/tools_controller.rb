@@ -19,6 +19,20 @@ class Admin::ToolsController < ApplicationController
     end
   end
 
+  def edit
+    @tool = Tool.find(params[:id])
+  end
+
+  def update
+    @tool = Tool.find(params[:id])
+    if @tool.update(tool_params)
+      redirect_to admin_tools_path, notice: "Tool updated."
+    else
+      flash.now[:alert] = @tool.errors.full_messages.join(", ")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     Tool.find(params[:id]).destroy
     redirect_to admin_tools_path, notice: "Tool removed."

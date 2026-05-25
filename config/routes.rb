@@ -28,7 +28,9 @@ Rails.application.routes.draw do
     delete "tasks/:id", to: "tasks#destroy"
     get "tools", to: "tools#index", as: :admin_tools
     post "tools", to: "tools#create"
-    delete "tools/:id", to: "tools#destroy", as: :admin_tool
+    get "tools/:id/edit", to: "tools#edit", as: :edit_admin_tool
+    patch "tools/:id", to: "tools#update", as: :admin_tool
+    delete "tools/:id", to: "tools#destroy"
     get "inventory", to: "inventory#index", as: :admin_inventory
     post "inventory", to: "inventory#create"
     get "inventory/:id/edit", to: "inventory#edit", as: :edit_admin_inventory_item
