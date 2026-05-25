@@ -27,6 +27,6 @@ class Admin::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.require(:tool).permit(:name, :photo, :self_serve, :by_request)
+    params.require(:tool).permit(:name, :photo, :self_serve, :by_request, :usage_text)
   end
 end

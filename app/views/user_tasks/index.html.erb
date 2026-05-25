@@ -1,11 +1,103 @@
 <div style="max-width: 700px; margin: 40px auto; padding: 20px;">
   <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 8px;">Tasks</h1>
-  <p style="color: #666; margin-bottom: 24px;">These are tasks that need to be completed at our plots. If you're able to help, reach out to us!</p>
+  <p style="color: #666; margin-bottom: 24px;">These are tasks that need to be completed at our plots. Feel free to take on any that you can! Check our <a href="<%= user_tasks_tools_path %>">tool library</a> to see what's available.</p>
 
   <% unless current_user.latitude.present? %>
     <div style="background-color: #fef3c7; border: 1px solid #fcd34d; color: #92400e; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
       <a href="<%= profile_path %>">Add your address</a> to see tasks sorted by distance from you.
     </div>
+  <% end %>
+
+  <% plots_with_tasks = @tasks.map(&:plot).uniq.select { |p| p.latitude.present? && p.longitude.present? } %>
+  <% if plots_with_tasks.any? %>
+    <div id="tasks-map" style="width: 100%; height: 300px; border-radius: 8px; margin-bottom: 24px;"></div>
+
+    <script>
+      function initMap() {
+        var plots = <%= raw plots_with_tasks.map { |p|
+          { lat: p.latitude.to_f, lng: p.longitude.to_f, name: p.display_name, url: plot_path(p) }
+        }.to_json %>;
+
+        var bounds = new google.maps.LatLngBounds();
+        var map = new google.maps.Map(document.getElementById("tasks-map"), {
+          mapId: "tasks-map"
+        });
+
+        var pin = new google.maps.marker.PinElement({
+          background: "#f57c00",
+          borderColor: "#f57c00",
+          glyphColor: "white"
+        });
+
+        plots.forEach(function(plot) {
+          var position = { lat: plot.lat, lng: plot.lng };
+
+          var pinClone = new google.maps.marker.PinElement({
+            background: "#f57c00",
+            borderColor: "#f57c00",
+            glyphColor: "white"
+          });
+
+          var marker = new google.maps.marker.AdvancedMarkerElement({
+            map: map,
+            position: position,
+            title: plot.name,
+            content: pinClone.element
+          });
+
+          marker.addListener("click", function() {
+            window.location.href = plot.url;
+          });
+
+          bounds.extend(position);
+        });
+
+        <% if current_user.latitude.present? && current_user.longitude.present? %>
+          var youPin = new google.maps.marker.PinElement({
+            background: "#3d3d6b",
+            borderColor: "#3d3d6b",
+            glyphColor: "white"
+          });
+
+          new google.maps.marker.AdvancedMarkerElement({
+            map: map,
+            position: { lat: <%= current_user.latitude.to_f %>, lng: <%= current_user.longitude.to_f %> },
+            title: "You",
+            content: youPin.element
+          });
+
+          bounds.extend({ lat: <%= current_user.latitude.to_f %>, lng: <%= current_user.longitude.to_f %> });
+        <% end %>
+
+        map.fitBounds(bounds, 50);
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var livePos = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+            var livePin = new google.maps.marker.PinElement({
+              background: "#2563eb",
+              borderColor: "#2563eb",
+              glyphColor: "white",
+              scale: 0.8
+            });
+
+            new google.maps.marker.AdvancedMarkerElement({
+              map: map,
+              position: livePos,
+              title: "Your current location",
+              content: livePin.element
+            });
+
+            bounds.extend(livePos);
+            map.fitBounds(bounds, 50);
+          });
+        }
+      }
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :maps_api_key) %>&callback=initMap&libraries=marker&v=weekly">
+    </script>
   <% end %>
 
   <% if @tasks.any? %>

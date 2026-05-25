@@ -19,6 +19,11 @@ class UserTasksController < ApplicationController
     end
   end
 
+  def tools
+    @self_serve_tools = Tool.where(self_serve: true).order(:name)
+    @by_request_tools = Tool.where(by_request: true).order(:name)
+  end
+
   private
 
   def require_login

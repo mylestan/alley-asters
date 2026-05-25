@@ -1,0 +1,46 @@
+<div style="max-width: 700px; margin: 40px auto; padding: 20px;">
+  <p><a href="<%= user_tasks_path %>">&larr; Back to tasks</a></p>
+
+  <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 8px;">Tool Library</h1>
+  <p style="color: #666; margin-bottom: 24px;">Tasks will state what tools are suggested or required. The following tools are available from the <strong>3884 Connecticut</strong> tool library.</p>
+
+  <% if @self_serve_tools.any? %>
+    <h2 style="font-size: 1.2em; font-weight: bold; margin-bottom: 12px;">Self-Serve</h2>
+    <p style="color: #666; margin-bottom: 12px;">These tools can be taken and returned without coordination. Please return them when you're done!</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 32px;">
+      <% @self_serve_tools.each do |tool| %>
+        <div style="background-color: white; padding: 12px; border-radius: 8px; text-align: center;">
+          <% if tool.photo.attached? %>
+            <%= image_tag url_for(tool.photo), style: "width: 80px; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;" %>
+          <% end %>
+          <div style="font-weight: bold; font-size: 0.9em;"><%= tool.name %></div>
+          <% if tool.usage_text.present? %>
+            <p style="color: #666; font-size: 0.8em; margin-top: 4px;"><%= tool.usage_text %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @by_request_tools.any? %>
+    <h2 style="font-size: 1.2em; font-weight: bold; margin-bottom: 12px;">By Request</h2>
+    <p style="color: #666; margin-bottom: 12px;">These tools require coordination before pickup. Email <strong>alleyasters [at] gmail [dot] com</strong> to arrange a time.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 32px;">
+      <% @by_request_tools.each do |tool| %>
+        <div style="background-color: white; padding: 12px; border-radius: 8px; text-align: center;">
+          <% if tool.photo.attached? %>
+            <%= image_tag url_for(tool.photo), style: "width: 80px; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;" %>
+          <% end %>
+          <div style="font-weight: bold; font-size: 0.9em;"><%= tool.name %></div>
+          <% if tool.usage_text.present? %>
+            <p style="color: #666; font-size: 0.8em; margin-top: 4px;"><%= tool.usage_text %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @self_serve_tools.empty? && @by_request_tools.empty? %>
+    <p style="color: #666;">No tools available yet.</p>
+  <% end %>
+</div>
