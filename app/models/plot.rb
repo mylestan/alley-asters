@@ -4,6 +4,7 @@ class Plot < ApplicationRecord
   has_many :plots_plants, dependent: :destroy
   has_many :plants, through: :plots_plants
   has_many :photos, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   validates :status, inclusion: { in: STATUSES }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_24_192017) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_25_160626) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -233,6 +233,42 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_24_192017) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "task_completions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "task_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["task_id"], name: "index_task_completions_on_task_id"
+    t.index ["user_id"], name: "index_task_completions_on_user_id"
+  end
+
+  create_table "task_tools", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "requirement", default: "required", null: false
+    t.integer "task_id", null: false
+    t.integer "tool_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_task_tools_on_task_id"
+    t.index ["tool_id"], name: "index_task_tools_on_tool_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "completed_at"
+    t.text "completion_notes"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "plot_id", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["plot_id"], name: "index_tasks_on_plot_id"
+  end
+
+  create_table "tools", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "city"
     t.datetime "created_at", null: false
@@ -263,4 +299,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_24_192017) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "task_completions", "tasks"
+  add_foreign_key "task_completions", "users"
+  add_foreign_key "task_tools", "tasks"
+  add_foreign_key "task_tools", "tools"
+  add_foreign_key "tasks", "plots"
 end

@@ -1,0 +1,46 @@
+<div style="max-width: 700px; margin: 40px auto; padding: 20px;">
+  <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 8px;">Tasks</h1>
+  <p style="color: #666; margin-bottom: 24px;">These are tasks that need to be completed at our plots. If you're able to help, reach out to us!</p>
+
+  <% unless current_user.latitude.present? %>
+    <div style="background-color: #fef3c7; border: 1px solid #fcd34d; color: #92400e; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+      <a href="<%= profile_path %>">Add your address</a> to see tasks sorted by distance from you.
+    </div>
+  <% end %>
+
+  <% if @tasks.any? %>
+    <% @tasks.each do |task| %>
+      <div style="background-color: white; padding: 16px; border-radius: 8px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h3 style="font-weight: bold; margin: 0 0 4px 0;"><%= task.title %></h3>
+            <p style="color: #666; margin: 0; font-size: 0.9em;">
+              <a href="<%= plot_path(task.plot) %>"><%= task.plot.display_name %></a>
+              <% if @distances[task.id] %>
+                <% feet = @distances[task.id] %>
+                <span style="color: #999;">
+                  (<%= feet > 5280 ? "~#{(feet / 5280).round(1)} mi from you" : "~#{feet.round(0).to_i} ft from you" %>)
+                </span>
+              <% end %>
+            </p>
+          </div>
+        </div>
+        <% if task.description.present? %>
+          <p style="margin-top: 8px; margin-bottom: 0;"><%= task.description %></p>
+        <% end %>
+        <% if task.required_tools.any? || task.suggested_tools.any? %>
+          <div style="margin-top: 8px; font-size: 0.9em;">
+            <% if task.required_tools.any? %>
+              <p style="margin: 4px 0;"><strong>Required:</strong> <%= task.required_tools.map(&:name).join(", ") %></p>
+            <% end %>
+            <% if task.suggested_tools.any? %>
+              <p style="margin: 4px 0; color: #666;"><strong>Suggested:</strong> <%= task.suggested_tools.map(&:name).join(", ") %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p style="color: #666;">No open tasks right now. Check back soon!</p>
+  <% end %>
+</div>

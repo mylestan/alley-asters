@@ -1,0 +1,52 @@
+<h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 24px;">Tools</h1>
+
+<% if flash[:notice] %>
+  <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div style="background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= form_with model: @tool, url: admin_tools_path, multipart: true, style: "display: flex; gap: 8px; align-items: flex-end; margin-bottom: 32px;" do |f| %>
+  <div style="flex: 1;">
+    <label style="display: block; font-weight: bold; margin-bottom: 4px;">Name</label>
+    <%= f.text_field :name, placeholder: "Tool name", required: true,
+      style: "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;" %>
+  </div>
+  <div style="flex: 1;">
+    <label style="display: block; font-weight: bold; margin-bottom: 4px;">Photo</label>
+    <%= f.file_field :photo, accept: "image/*", style: "width: 100%; font-family: inherit;" %>
+  </div>
+  <button type="submit"
+    style="background-color: #3d3d6b; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; white-space: nowrap;">
+    Add
+  </button>
+<% end %>
+
+<% if @tools.any? %>
+  <p style="color: #666; margin-bottom: 12px;"><%= @tools.count %> tool<%= @tools.count == 1 ? "" : "s" %></p>
+  <table style="width: 100%; border-collapse: collapse;">
+    <% @tools.each do |tool| %>
+      <tr style="border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px 0; display: flex; align-items: center; gap: 10px;">
+          <% if tool.photo.attached? %>
+            <%= image_tag url_for(tool.photo), style: "width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" %>
+          <% end %>
+          <%= tool.name %>
+        </td>
+        <td style="padding: 10px 0; text-align: right;">
+          <%= button_to "Remove", admin_tool_path(tool), method: :delete,
+            form: { onsubmit: "return confirm('Remove #{j(tool.name)}?')" },
+            style: "background: none; border: none; color: #991b1b; cursor: pointer; font-family: inherit; font-size: 0.9em;" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p style="color: #666;">No tools added yet.</p>
+<% end %>

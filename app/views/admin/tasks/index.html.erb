@@ -1,0 +1,72 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+  <h1 style="font-size: 1.5em; font-weight: bold; margin: 0;">Tasks</h1>
+  <a href="<%= new_admin_task_path %>"
+    style="background-color: #3d3d6b; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 0.9em;">
+    + New Task
+  </a>
+</div>
+
+<% if flash[:notice] %>
+  <div style="background-color: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% pending_tasks = @tasks.reject(&:completed?) %>
+<% completed_tasks = @tasks.select(&:completed?) %>
+
+<% if pending_tasks.any? %>
+  <h2 style="font-size: 1.2em; font-weight: bold; margin-bottom: 12px;">Open (<%= pending_tasks.count %>)</h2>
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
+    <thead>
+      <tr style="border-bottom: 2px solid #999; text-align: left;">
+        <th style="padding: 8px 0;">Title</th>
+        <th style="padding: 8px 0;">Plot</th>
+        <th style="padding: 8px 0;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% pending_tasks.each do |task| %>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px 0;"><%= task.title %></td>
+          <td style="padding: 10px 0;"><%= task.plot.display_name %></td>
+          <td style="padding: 10px 0; text-align: right;">
+            <a href="<%= edit_admin_task_path(task) %>" target="_blank" style="color: #3d3d6b;">Edit</a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if completed_tasks.any? %>
+  <h2 style="font-size: 1.2em; font-weight: bold; margin-bottom: 12px;">Completed (<%= completed_tasks.count %>)</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="border-bottom: 2px solid #999; text-align: left;">
+        <th style="padding: 8px 0;">Title</th>
+        <th style="padding: 8px 0;">Plot</th>
+        <th style="padding: 8px 0;">Completed</th>
+        <th style="padding: 8px 0;">By</th>
+        <th style="padding: 8px 0;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% completed_tasks.each do |task| %>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px 0; color: #666;"><%= task.title %></td>
+          <td style="padding: 10px 0; color: #666;"><%= task.plot.display_name %></td>
+          <td style="padding: 10px 0; color: #666;"><%= task.completed_at.strftime("%b %d, %Y") %></td>
+          <td style="padding: 10px 0; color: #666;"><%= task.completers.map { |u| u.first_name || u.email }.join(", ") %></td>
+          <td style="padding: 10px 0; text-align: right;">
+            <a href="<%= edit_admin_task_path(task) %>" target="_blank" style="color: #3d3d6b;">Edit</a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @tasks.empty? %>
+  <p style="color: #666;">No tasks yet.</p>
+<% end %>
