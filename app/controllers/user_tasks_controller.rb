@@ -2,7 +2,7 @@ class UserTasksController < ApplicationController
   before_action :require_login
 
   def index
-    @tasks = Task.where(completed_at: nil).includes(:plot, :task_tools, :tools).order(:created_at)
+    @tasks = Task.where(completed_at: nil).includes(:plot, :task_tools, :tools).order(created_at: :desc)
     @distances = {}
 
     if current_user.latitude.present? && current_user.longitude.present?

@@ -24,6 +24,7 @@
               <% end %>
             </p>
           </div>
+          <span style="color: #999; font-size: 0.8em; white-space: nowrap;"><%= task.created_at.strftime("%b %d") %></span>
         </div>
         <% if task.description.present? %>
           <p style="margin-top: 8px; margin-bottom: 0;"><%= task.description %></p>
