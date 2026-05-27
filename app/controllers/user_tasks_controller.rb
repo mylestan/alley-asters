@@ -24,6 +24,29 @@ class UserTasksController < ApplicationController
     @by_request_tools = Tool.where(by_request: true).order(:name)
   end
 
+  def complete
+    @task = Task.find(params[:id])
+    @users = User.where.not(id: current_user.id).order(:email)
+  end
+
+  def submit_completion
+    @task = Task.find(params[:id])
+    @task.update!(
+      completed_at: Time.current,
+      completion_notes: params[:completion_notes]
+    )
+
+    # Add current user as completer
+    TaskCompletion.find_or_create_by!(task: @task, user: current_user)
+
+    # Add additional completers
+    (params[:completer_ids] || []).reject(&:blank?).each do |user_id|
+      TaskCompletion.find_or_create_by!(task: @task, user_id: user_id)
+    end
+
+    redirect_to user_tasks_path, notice: "Task marked as completed!"
+  end
+
   private
 
   def require_login

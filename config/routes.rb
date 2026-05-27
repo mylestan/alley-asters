@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   patch "profile", to: "profiles#update"
   get "tasks", to: "user_tasks#index", as: :user_tasks
   get "tasks/tools", to: "user_tasks#tools", as: :user_tasks_tools
+  get "tasks/:id/complete", to: "user_tasks#complete", as: :complete_user_task
+  post "tasks/:id/complete", to: "user_tasks#submit_completion"
 
   get "plots/:slug", to: "plots#show", as: :plot
   get "old", to: "pages#old"

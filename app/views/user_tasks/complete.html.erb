@@ -1,0 +1,41 @@
+<div style="max-width: 500px; margin: 40px auto; padding: 20px;">
+  <p><a href="<%= user_tasks_path %>">&larr; Back to tasks</a></p>
+
+  <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 8px;">Complete Task</h1>
+
+  <div style="background-color: white; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <h3 style="font-weight: bold; margin: 0 0 4px 0;"><%= @task.title %></h3>
+    <p style="color: #666; margin: 0; font-size: 0.9em;"><%= @task.plot.display_name %></p>
+    <% if @task.description.present? %>
+      <p style="margin-top: 8px; margin-bottom: 0;"><%= @task.description %></p>
+    <% end %>
+  </div>
+
+  <%= form_with url: complete_user_task_path(@task), method: :post do %>
+    <div style="margin-bottom: 16px;">
+      <label style="display: block; font-weight: bold; margin-bottom: 4px;">Notes (optional)</label>
+      <textarea name="completion_notes" rows="3" placeholder="Any notes about the work completed..."
+        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; box-sizing: border-box;"></textarea>
+    </div>
+
+    <% if @users.any? %>
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Who else helped?</label>
+        <p style="color: #666; font-size: 0.85em; margin-bottom: 8px;">Select anyone who completed this task with you.</p>
+        <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; border-radius: 4px; padding: 8px;">
+          <% @users.each do |user| %>
+            <label style="display: flex; align-items: center; gap: 6px; padding: 4px 0;">
+              <%= check_box_tag "completer_ids[]", user.id %>
+              <%= user.first_name.present? ? "#{user.first_name} #{user.last_name}" : user.email %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <button type="submit"
+      style="background-color: #2e7d32; color: white; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 1em;">
+      Mark as Completed
+    </button>
+  <% end %>
+</div>

@@ -1,6 +1,6 @@
 <div style="max-width: 700px; margin: 40px auto; padding: 20px;">
   <h1 style="font-size: 1.5em; font-weight: bold; margin-bottom: 8px;">Tasks</h1>
-  <p style="color: #666; margin-bottom: 24px;">These are tasks that need to be completed at our plots. Feel free to take on any that you can! Check our <a href="<%= user_tasks_tools_path %>">tool library</a> to see what's available.</p>
+  <p style="color: #666; margin-bottom: 24px;">These are tasks that need to be completed at our plots. Feel free to take on any that you can!</p>
 
   <% unless current_user.latitude.present? %>
     <div style="background-color: #fef3c7; border: 1px solid #fcd34d; color: #92400e; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
@@ -131,6 +131,12 @@
             <% end %>
           </div>
         <% end %>
+        <div style="margin-top: 12px;">
+          <a href="<%= complete_user_task_path(task) %>"
+            style="background-color: #2e7d32; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.85em;">
+            Mark as Completed
+          </a>
+        </div>
       </div>
     <% end %>
   <% else %>
