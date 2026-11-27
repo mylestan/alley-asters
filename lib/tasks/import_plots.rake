@@ -65,7 +65,7 @@ namespace :plots do
       { name: "4004 Hartford",     lat: 38.6023042, lng: -90.2529045, status: "potential", managed_by_us: true },
       { name: "3730 Utah",         lat: 38.5969075, lng: -90.2467415, status: "potential", managed_by_us: true },
       { name: "3655 Wyoming",      lat: 38.5997609, lng: -90.2447154, status: "potential", managed_by_us: true },
-      { name: "3800 Connecticut",  lat: 38.6001603, lng: -90.2466465, status: "potential", managed_by_us: true },
+      { name: "3800 Connecticut",  lat: 38.6001603, lng: -90.2466465, status: "potential", managed_by_us: true }
     ]
 
     # ─── Enrichment data from the old webpage ────────────────────────────
@@ -165,119 +165,119 @@ namespace :plots do
       "3884 Connecticut" => {
         dir: "3884-connecticut",
         images: [
-          ["IMG_3719.jpg", "Initial planting (east bed)"],
-          ["IMG_5119.jpg", "1st year spring (east bed)"],
-          ["IMG_5225.jpg", "1st year summer (east bed)"],
-          ["IMG_5053.jpg", "1st year (west bed)"],
+          [ "IMG_3719.jpg", "Initial planting (east bed)" ],
+          [ "IMG_5119.jpg", "1st year spring (east bed)" ],
+          [ "IMG_5225.jpg", "1st year summer (east bed)" ],
+          [ "IMG_5053.jpg", "1st year (west bed)" ]
         ]
       },
       "3891 Connecticut" => {
         dir: "3891-connecticut",
         images: [
-          ["IMG_5318.jpg", "Before"],
-          ["IMG_5712.jpg", "Initial planting"],
+          [ "IMG_5318.jpg", "Before" ],
+          [ "IMG_5712.jpg", "Initial planting" ]
         ]
       },
       "3847 Connecticut (East)" => {
         dir: "3847-connecticut",
         images: [
-          ["IMG_5761.jpg", "Before (east bed)"],
-          ["IMG_5820.jpg", "Initial planting"],
-          ["IMG_7522.jpg", "1st year"],
-          ["IMG_5760.jpg", "Before (west bed)"],
-          ["IMG_5819.jpg", "Initial planting"],
-          ["IMG_7524.jpg", "1st year"],
+          [ "IMG_5761.jpg", "Before (east bed)" ],
+          [ "IMG_5820.jpg", "Initial planting" ],
+          [ "IMG_7522.jpg", "1st year" ],
+          [ "IMG_5760.jpg", "Before (west bed)" ],
+          [ "IMG_5819.jpg", "Initial planting" ],
+          [ "IMG_7524.jpg", "1st year" ]
         ]
       },
       "3614 Wyoming (East)" => {
         dir: "3614-wyoming",
         images: [
-          ["IMG_5396.jpg", "Before, trimmed (east bed)"],
-          ["IMG_5397.jpg", "Solarization"],
-          ["IMG_5831.jpg", "Initial planting"],
-          ["IMG_8060.jpg", "1st year"],
-          ["IMG_5394.jpg", "Before, trimmed (west bed)"],
-          ["IMG_5395.jpg", "Solarization"],
-          ["IMG_7459.jpg", "Initial planting"],
-          ["IMG_8061.jpg", "1st year"],
+          [ "IMG_5396.jpg", "Before, trimmed (east bed)" ],
+          [ "IMG_5397.jpg", "Solarization" ],
+          [ "IMG_5831.jpg", "Initial planting" ],
+          [ "IMG_8060.jpg", "1st year" ],
+          [ "IMG_5394.jpg", "Before, trimmed (west bed)" ],
+          [ "IMG_5395.jpg", "Solarization" ],
+          [ "IMG_7459.jpg", "Initial planting" ],
+          [ "IMG_8061.jpg", "1st year" ]
         ]
       },
       "4020 Hartford" => {
         dir: "4020-hartford",
         images: [
-          ["IMG_5763.jpg", "During planting"],
-          ["IMG_5785.jpg", "Initial planting"],
-          ["IMG_7528.jpg", "1st year"],
+          [ "IMG_5763.jpg", "During planting" ],
+          [ "IMG_5785.jpg", "Initial planting" ],
+          [ "IMG_7528.jpg", "1st year" ]
         ]
       },
       "3895 Connecticut" => {
         dir: "3895-connecticut",
         images: [
-          ["IMG_5283.jpg", "Before (east bed)"],
-          ["IMG_9508.jpg", "Cleared (east bed)"],
-          ["IMG_5755.jpg", "Initial planting (east bed)"],
-          ["IMG_5849.jpg", "Initial planting (west bed)"],
+          [ "IMG_5283.jpg", "Before (east bed)" ],
+          [ "IMG_9508.jpg", "Cleared (east bed)" ],
+          [ "IMG_5755.jpg", "Initial planting (east bed)" ],
+          [ "IMG_5849.jpg", "Initial planting (west bed)" ]
         ]
       },
       "Mann Elementary" => {
         dir: "mann-elementary",
         images: [
-          ["IMG_5431.jpg", "Before"],
-          ["IMG_5626.jpg", "Solarization"],
-          ["IMG_5854.jpg", "Initial planting"],
-          ["IMG_7529.jpg", "1st year (spring)"],
-          ["IMG_8156.jpg", "1st year (summer)"],
+          [ "IMG_5431.jpg", "Before" ],
+          [ "IMG_5626.jpg", "Solarization" ],
+          [ "IMG_5854.jpg", "Initial planting" ],
+          [ "IMG_7529.jpg", "1st year (spring)" ],
+          [ "IMG_8156.jpg", "1st year (summer)" ]
         ]
       },
       "4309 Norfolk" => {
         dir: "4309-norfolk",
         images: [
-          ["IMG_5846.jpg", "Initial planting"],
-          ["IMG_8086.jpg", "1st year (summer)"],
+          [ "IMG_5846.jpg", "Initial planting" ],
+          [ "IMG_8086.jpg", "1st year (summer)" ]
         ]
       },
       "3807 Humphrey" => {
         dir: "3807-humphrey",
         images: [
-          ["IMG_7011.jpg", "Before"],
-          ["IMG_7198.jpg", "Initial planting"],
+          [ "IMG_7011.jpg", "Before" ],
+          [ "IMG_7198.jpg", "Initial planting" ]
         ]
       },
       "3801 Humphrey" => {
         dir: "3801-humphrey",
         images: [
-          ["IMG_7604.jpg", "Initial planting"],
+          [ "IMG_7604.jpg", "Initial planting" ]
         ]
       },
       "3711 Humphrey" => {
         dir: "3711-humphrey",
         images: [
-          ["IMG_6302.jpg", "Before"],
-          ["IMG_7455.jpg", "Initial planting"],
+          [ "IMG_6302.jpg", "Before" ],
+          [ "IMG_7455.jpg", "Initial planting" ]
         ]
       },
       "3975 Wyoming" => {
         dir: "3975-wyoming",
         images: [
-          ["IMG_5330.jpg", "Before"],
-          ["IMG_7577.jpg", "Initial planting"],
-          ["IMG_8675.jpg", "0th year (fall)"],
+          [ "IMG_5330.jpg", "Before" ],
+          [ "IMG_7577.jpg", "Initial planting" ],
+          [ "IMG_8675.jpg", "0th year (fall)" ]
         ]
       },
       "3920 Potomac" => {
         dir: "3920-potomac",
         images: [
-          ["IMG_7486.jpg", "Before"],
+          [ "IMG_7486.jpg", "Before" ]
         ]
       },
       "4045 Humphrey" => {
         dir: "4045-humphrey",
         images: [
-          ["IMG_5422.jpg", "Before"],
-          ["IMG_5853.jpg", "Initial planting"],
-          ["IMG_7531.jpg", "1st year (spring)"],
+          [ "IMG_5422.jpg", "Before" ],
+          [ "IMG_5853.jpg", "Initial planting" ],
+          [ "IMG_7531.jpg", "1st year (spring)" ]
         ]
-      },
+      }
     }
 
     # ─── Import ──────────────────────────────────────────────────────────

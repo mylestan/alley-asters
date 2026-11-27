@@ -9,7 +9,6 @@ namespace :plants do
          .having("COUNT(*) > 1")
          .pluck(Arel.sql("LOWER(name)"))
          .each do |lower_name|
-
       plants = Plant.where("LOWER(name) = ?", lower_name).order(:created_at)
       keeper = plants.first
       duplicates = plants[1..]
