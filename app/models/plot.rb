@@ -29,7 +29,7 @@ class Plot < ApplicationRecord
   # Newest first planted first; plots with no date go last, in address order.
   def self.by_first_planted_desc
     by_address.each_with_index.sort_by do |plot, i|
-      [plot.first_planted ? 0 : 1, -(plot.first_planted&.jd || 0), i]
+      [ plot.first_planted ? 0 : 1, -(plot.first_planted&.jd || 0), i ]
     end.map(&:first)
   end
 
