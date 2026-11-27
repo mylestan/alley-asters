@@ -9,7 +9,6 @@ class Plot < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
 
   before_validation :generate_slug
-  before_save :set_first_planted_when_planted
 
   def display_name
     parts = [ address, sub_location.present? ? "(#{sub_location})" : nil ].compact.join(" ")
@@ -60,14 +59,6 @@ class Plot < ApplicationRecord
   end
 
   private
-
-  # When a plot is switched to planted and has no first planted date yet,
-  # use today's date (Central time, where the plots are).
-  def set_first_planted_when_planted
-    return unless status == "planted" && will_save_change_to_status? && first_planted.blank?
-
-    self.first_planted = Time.find_zone("Central Time (US & Canada)").today
-  end
 
   def generate_slug
     source = display_name
