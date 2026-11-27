@@ -48,12 +48,12 @@ class Admin::PlantsController < ApplicationController
   def generate_csv
     require "csv"
     plant_ids_in_plots = PlotsPlant.distinct.pluck(:plant_id).to_set
-    plants = Plant.order(:latin_name).sort_by { |p| [plant_ids_in_plots.include?(p.id) ? 0 : 1, p.latin_name.to_s.downcase] }
+    plants = Plant.order(:latin_name).sort_by { |p| [ plant_ids_in_plots.include?(p.id) ? 0 : 1, p.latin_name.to_s.downcase ] }
 
     CSV.generate(headers: true) do |csv|
-      csv << ["Common Name", "Latin Name", "In Plot"]
+      csv << [ "Common Name", "Latin Name", "In Plot" ]
       plants.each do |plant|
-        csv << [plant.name, plant.latin_name, plant_ids_in_plots.include?(plant.id) ? "Yes" : "No"]
+        csv << [ plant.name, plant.latin_name, plant_ids_in_plots.include?(plant.id) ? "Yes" : "No" ]
       end
     end
   end

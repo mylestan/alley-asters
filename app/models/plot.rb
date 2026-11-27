@@ -11,7 +11,7 @@ class Plot < ApplicationRecord
   before_validation :generate_slug
 
   def display_name
-    parts = [address, sub_location.present? ? "(#{sub_location})" : nil].compact.join(" ")
+    parts = [ address, sub_location.present? ? "(#{sub_location})" : nil ].compact.join(" ")
     parts.present? ? parts : name
   end
 
@@ -19,9 +19,9 @@ class Plot < ApplicationRecord
     all.sort_by do |plot|
       addr = plot.address || ""
       if addr.match(/^(\d+)\s+(.+)$/)
-        [0, $2, $1.to_i, plot.sub_location.to_s]
+        [ 0, $2, $1.to_i, plot.sub_location.to_s ]
       else
-        [1, plot.display_name, 0, ""]
+        [ 1, plot.display_name, 0, "" ]
       end
     end
   end

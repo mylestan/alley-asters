@@ -24,7 +24,7 @@ namespace :plots do
       end
 
       plot.save!
-      parts = [plot.address, plot.sub_location, plot.name].compact.reject(&:blank?)
+      parts = [ plot.address, plot.sub_location, plot.name ].compact.reject(&:blank?)
       puts "  #{original} → address: #{plot.address.inspect}, sub: #{plot.sub_location.inspect}, name: #{plot.name.inspect}"
     end
 
