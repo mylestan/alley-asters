@@ -7,7 +7,7 @@ class Admin::PlotsController < ApplicationController
   def index
     @status_filter = params[:status]
     plots = @status_filter.present? ? Plot.where(status: @status_filter) : Plot.all
-    @plots = plots.by_address
+    @plots = plots.by_first_planted_desc
   end
 
   def new
