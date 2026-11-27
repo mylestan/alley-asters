@@ -82,6 +82,7 @@
       <th style="padding: 8px 0;">Name</th>
       <th style="padding: 8px 0;">Status</th>
       <th style="padding: 8px 0;">First Planted</th>
+      <th style="padding: 8px 0;">Managed By</th>
       <th style="padding: 8px 0;">Sq. Ft.</th>
       <th style="padding: 8px 0;">% Native</th>
       <th style="padding: 8px 0;"></th>
@@ -116,6 +117,7 @@
           <span style="background-color: <%= bg %>; color: <%= color %>; padding: 2px 8px; border-radius: 3px; font-size: 0.85em;"><%= plot.status %></span>
         </td>
         <td style="padding: 10px 0;"><%= plot.first_planted ? plot.first_planted.strftime("%b %d, %Y") : "—" %></td>
+        <td style="padding: 10px 0;"><%= plot.managed_by_us ? "Alley Asters" : "Not us" %></td>
         <td style="padding: 10px 0;"><%= plot.square_footage || "—" %></td>
         <td style="padding: 10px 0;"><%= plot.native_plant_coverage_percent ? "#{(plot.native_plant_coverage_percent * 100).round}%" : "—" %></td>
         <td style="padding: 10px 0; text-align: right;">
